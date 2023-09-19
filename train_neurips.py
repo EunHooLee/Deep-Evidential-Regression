@@ -21,7 +21,7 @@ def plot_predictions(x_train, y_train, x_test, y_test, y_pred, n_stds=4, kk=0):
     mu = mu[:, 0]
     var = np.sqrt(beta / (v * (alpha - 1)))
     var = np.minimum(var, 1e3)[:, 0]  # for visualization
-
+    print(var)
     plt.figure(figsize=(5, 3), dpi=200)
     plt.scatter(x_train, y_train, s=1., c='#463c3c', zorder=0, label="Train")
 
@@ -65,7 +65,7 @@ def main():
     model = NormalInverseGammaNetwork(1,1,64)
     optimizer = torch.optim.Adam(model.parameters(), lr=5e-4)
     
-    max_iters = 1500
+    max_iters = 150000
     model.train()
     try:
         it = 0

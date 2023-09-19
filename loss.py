@@ -42,3 +42,12 @@ def EvidentialRegressionLoss(y_true, evidential_output, coeff=1.0):
     loss_nll = NIG_NLL(y_true, gamma, v, alpha, beta)
     loss_reg = NIG_Reg(y_true, gamma, v, alpha, beta)
     return loss_nll + coeff * loss_reg
+
+
+def SDERLoss(y_true, evidence, coeff=1.0):
+    gamma, v, _, beta = evidence
+    
+    error = y_true - gamma
+    var = beta/v
+
+    return torch.mean(torch.log(var) + (1 + coeff * v) * error**2 / var)
